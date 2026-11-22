@@ -17,7 +17,7 @@ public class createProjectController {
     }
 
     @GetMapping("/create")
-    public String createProject() {
+    public String index() {
         return "createProject/index";
     }
 
