@@ -7,7 +7,7 @@
 </head>
 <body>
 <main layout:fragment="content" class="browser-page">
-    <section class="browser-heading" aria-labelledby="browser-title">
+    <section class="heading-section" aria-labelledby="browser-title">
         <p class="eyebrow">Find your next collaboration</p>
         <h1 id="browser-title">Small teams.<br>Big possibilities.</h1>
         <p class="intro">Explore ideas worth building and find a project where your skills can make a difference.</p>
@@ -58,6 +58,45 @@
                 </div>
             </details>
         </article>
+
+        <div th:each="project : ${projects}">
+            <article class="project-card shadow-sm transition-shadow hover:shadow-md" aria-labelledby="project-title">
+                <h3 class="h2" th:text="${project.name}"></h3>
+                <p th:text="${project.smallDescription}"></p>
+
+                <ul class="project-tags" aria-label="Technologies">
+                    <li>Java</li>
+                    <li>Spring Boot</li>
+                    <li>PostgreSQL</li>
+                    <li>Thymeleaf</li>
+                </ul>
+
+                <dl class="project-facts">
+                    <div>
+                        <dt>Started by</dt>
+                        <dd>Alexander Fedorciv</dd>
+                    </div>
+                    <div>
+                        <dt>Project stage</dt>
+                        <dd>Early prototype</dd>
+                    </div>
+                    <div>
+                        <dt>Looking for</dt>
+                        <dd>Backend developers &amp; UI designers</dd>
+                    </div>
+                </dl>
+
+                <details class="project-details">
+                    <summary>More about this project</summary>
+                    <div class="project-details-body">
+                        <h4>What we are building first</h4>
+                        <p>A garden dashboard with planting reminders and a simple calendar for volunteer sessions. We are keeping the first version small and learning as we go.</p>
+                        <h4>You would be a great fit if&hellip;</h4>
+                        <p>You enjoy solving practical problems, want to practise Java with a friendly team, or have an eye for making useful tools easier to use. Beginners are welcome.</p>
+                    </div>
+                </details>
+            </article>
+        </div>
     </section>
 </main>
 </body>

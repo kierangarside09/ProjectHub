@@ -42,4 +42,5 @@ footer { padding: 24px 0; border-top: 1px solid var(--color-outline); color: var
 .project-details-body { max-width: 760px; padding-bottom: 8px; }
 .project-details-body h4 { margin: 24px 0 10px; }
 .browser-note { line-height: 1.6; }
+input, textarea { background-color: #FFF; border: 1px solid var(--color-ink); border-radius: 5px; }
 @media (max-width: 640px) { .hero { padding-top: 48px; } .features { grid-template-columns: 1fr; } .heading-section { padding-top: 32px; } .project-card { padding: 22px; } .project-facts { grid-template-columns: 1fr; gap: 18px; } }
