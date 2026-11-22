@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>ProjectHub | Welcome</title>
+    <meta name="description" content="ProjectHub — a home for your next big idea.">
+</head>
+<body>
+    <main layout:fragment="content">
+        <section class="hero" aria-labelledby="welcome-heading">
+            <p class="eyebrow">A fresh start for your ideas</p>
+            <h1 id="welcome-heading">Big ideas.<br>One place to begin.</h1>
+            <p class="intro">Welcome to ProjectHub. A home for turning inspiration into plans, bringing people together, and building something worth sharing.</p>
+            <a class="button" href="#explore">Take a look around &rarr;</a>
+        </section>
+        <section class="features" id="explore" aria-label="ProjectHub possibilities">
+            <article>
+                <span class="number">01 / IMAGINE</span>
+                <h2>Start with an idea</h2>
+                <p>Every great project begins with a little curiosity. Make room for what you want to build next.</p>
+            </article>
+            <article>
+                <span class="number">02 / CONNECT</span>
+                <h2>Build together</h2>
+                <p>Great work is a team effort. Bring fresh perspectives and shared purpose to your next challenge.</p>
+            </article>
+            <article>
+                <span class="number">03 / CREATE</span>
+                <h2>Make it happen</h2>
+                <p>Take the next small step. Turn your plans into progress, one milestone at a time.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
