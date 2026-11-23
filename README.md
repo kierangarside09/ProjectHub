@@ -1,6 +1,8 @@
 # ProjectHub
 
-A platform where people can post projects and find collaborators to join and build them together.
+A platform where people can post project ideas and find collaborators to build them together. The goal is a real, usable product: users create accounts, publish projects they want help with, and connect with people who have the skills and interest to join them.
+
+Planned features include project ownership and management, joining or expressing interest in projects, user profiles with skills and tags, project filtering/search, and in-app messaging between collaborators.
 
 ## Tech Stack
 

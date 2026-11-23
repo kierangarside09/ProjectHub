@@ -12,7 +12,7 @@
     <artifactId>ProjectHub</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ProjectHub</name>
-    <description>ProjectHub</description>
+    <description>A platform for posting project ideas and finding collaborators to build them together</description>
     <url/>
     <licenses>
         <license/>
