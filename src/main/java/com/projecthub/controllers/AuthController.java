@@ -1,4 +1,4 @@
-package com.projecthub.controllers.register;
+package com.projecthub.controllers;
 
 import com.projecthub.entities.Account;
 import com.projecthub.repositories.AccountRepository;
@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class RegisterController {
+public class AuthController {
 
     private final AccountRepository accountRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public RegisterController(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -45,6 +45,11 @@ public class RegisterController {
 
         @NotBlank(message = "Please confirm your password")
         private String confirmPassword;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login/index";
     }
 
     @GetMapping("/register")

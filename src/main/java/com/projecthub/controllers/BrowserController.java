@@ -1,4 +1,4 @@
-package com.projecthub.controllers.browser;
+package com.projecthub.controllers;
 
 import com.projecthub.repositories.ProjectRepository;
 import org.springframework.stereotype.Controller;
@@ -6,11 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class browserController {
+public class BrowserController {
 
     private final ProjectRepository projectRepository;
 
-    public browserController(ProjectRepository projectRepository) {
+    public BrowserController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 

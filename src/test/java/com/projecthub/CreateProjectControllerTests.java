@@ -1,6 +1,6 @@
 package com.projecthub;
 
-import com.projecthub.controllers.createProject.createProjectController;
+import com.projecthub.controllers.ProjectController;
 import com.projecthub.entities.Project;
 import com.projecthub.repositories.ProjectRepository;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class CreateProjectControllerTests {
     private ProjectRepository projectRepository;
 
     @InjectMocks
-    private createProjectController controller;
+    private ProjectController controller;
 
     @Test
     void createsProjectAndRedirectsToBrowser() {

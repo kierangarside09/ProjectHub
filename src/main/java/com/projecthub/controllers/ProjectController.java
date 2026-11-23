@@ -1,4 +1,4 @@
-package com.projecthub.controllers.createProject;
+package com.projecthub.controllers;
 
 import com.projecthub.entities.Project;
 import com.projecthub.repositories.ProjectRepository;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class createProjectController {
+public class ProjectController {
 
     private final ProjectRepository projectRepository;
 
-    public createProjectController(ProjectRepository projectRepository) {
+    public ProjectController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
