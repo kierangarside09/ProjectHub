@@ -1,11 +1,17 @@
-:root { color-scheme: light; font-family: var(--font-sans); color: var(--color-ink); background: var(--color-canvas); }
+:root { color-scheme: light;
+    font-family: var(--font-sans), sans-serif; color: var(--color-ink); background: var(--color-canvas); }
 * { box-sizing: border-box; }
 body { margin: 0; }
 .container { width: min(1050px, 100% - 48px); margin: auto; }
 header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 28px 0; }
 .brand { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.04em; text-decoration: none; color: var(--color-ink); }
 .brand span { color: var(--color-primary); }
+nav { display: flex; align-items: center; gap: 20px; }
 nav a { color: var(--color-navigation); text-decoration: none; font-size: 0.95rem; }
+.nav-user { color: var(--color-muted); font-size: 0.95rem; }
+.logout-form { margin: 0; }
+.logout-button { padding: 0; border: none; background: none; color: var(--color-navigation); font: inherit; font-size: 0.95rem; cursor: pointer; }
+.logout-button:hover { text-decoration: underline; }
 a:hover { text-decoration: underline; }
 a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 5px; }
 .hero { padding: 88px 0 64px; max-width: 740px; }
@@ -43,4 +49,10 @@ footer { padding: 24px 0; border-top: 1px solid var(--color-outline); color: var
 .project-details-body h4 { margin: 24px 0 10px; }
 .browser-note { line-height: 1.6; }
 input, textarea { background-color: #FFF; border: 1px solid var(--color-ink); border-radius: 5px; }
+.auth-form { max-width: 360px; display: flex; flex-direction: column; gap: 8px; }
+.auth-form input { padding: 10px 12px; }
+.auth-form button { border: none; cursor: pointer; font: inherit; }
+.error { margin: 0; color: #b91c1c; font-size: 0.9rem; }
+.notice { margin: 0; color: var(--color-success); font-size: 0.95rem; }
+.auth-switch { margin-top: 20px; color: var(--color-muted); font-size: 0.95rem; }
 @media (max-width: 640px) { .hero { padding-top: 48px; } .features { grid-template-columns: 1fr; } .heading-section { padding-top: 32px; } .project-card { padding: 22px; } .project-facts { grid-template-columns: 1fr; gap: 18px; } }

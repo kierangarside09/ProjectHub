@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,16 @@
 <body>
     <div class="container">
         <header>
-            <a class="brand" th:href="@{/static}">Project<span>Hub</span></a>
-            <nav aria-label="Main navigation"><a href="/create">Create a project</a></nav>
+            <a class="brand" th:href="@{/}">Project<span>Hub</span></a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a sec:authorize="isAnonymous()" th:href="@{/login}">Log in</a>
+                <a sec:authorize="isAnonymous()" th:href="@{/register}">Register</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/create}">Create a project</a>
+                <span sec:authorize="isAuthenticated()" class="nav-user" sec:authentication="name"></span>
+                <form sec:authorize="isAuthenticated()" class="logout-form" th:action="@{/logout}" method="post">
+                    <button class="logout-button" type="submit">Log out</button>
+                </form>
+            </nav>
         </header>
         <main layout:fragment="content"></main>
         <footer>ProjectHub &mdash; Your next chapter starts here.</footer>
