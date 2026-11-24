@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>ProjectHub | Edit Profile</title>
+    <meta name="description" content="ProjectHub — a home for your next big idea.">
+</head>
+<body>
+<main layout:fragment="content" class="profile-page">
+
+    <section class="heading-section" aria-labelledby="edit-profile-heading">
+        <p class="eyebrow">Your profile</p>
+        <h1 id="edit-profile-heading">Edit your<br>profile</h1>
+        <p class="description">This is what other users see when they check you out.</p>
+    </section>
+
+    <section class="form-section">
+        <form class="auth-form" th:object="${profileForm}" th:action="@{/profile/edit}" method="post">
+            <label for="displayName">Display name:</label>
+            <input type="text" id="displayName" th:field="*{displayName}" placeholder="Display name" autocomplete="nickname">
+            <p th:errors="*{displayName}" class="error"></p>
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}" placeholder="e.g. Manchester, UK" autocomplete="address-level2">
+            <p th:errors="*{location}" class="error"></p>
+
+            <label for="bio">Bio:</label>
+            <textarea id="bio" th:field="*{bio}" rows="5" placeholder="Tell people what you are about"></textarea>
+            <p th:errors="*{bio}" class="error"></p>
+
+            <label for="skills">Skills:</label>
+            <input type="text" id="skills" th:field="*{skills}" placeholder="e.g. Java, Spring Boot, UI design">
+            <p th:errors="*{skills}" class="error"></p>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" th:field="*{gender}">
+                <option value="">Prefer not to say</option>
+                <option th:each="g : ${genders}" th:value="${g}" th:text="${g.value}"></option>
+            </select>
+
+            <label for="lookingFor">Looking for:</label>
+            <select id="lookingFor" th:field="*{lookingFor}">
+                <option value="">—</option>
+                <option th:each="option : ${lookingForOptions}" th:value="${option}" th:text="${option.value}"></option>
+            </select>
+
+            <button class="button" type="submit">Save changes</button>
+        </form>
+
+        <p class="auth-switch"><a th:href="@{/profile}">Back to your profile</a></p>
+    </section>
+
+</main>
+</body>
+</html>

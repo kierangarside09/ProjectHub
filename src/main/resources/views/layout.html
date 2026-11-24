@@ -15,6 +15,7 @@
                 <a sec:authorize="isAnonymous()" th:href="@{/login}">Log in</a>
                 <a sec:authorize="isAnonymous()" th:href="@{/register}">Register</a>
                 <a sec:authorize="isAuthenticated()" th:href="@{/create}">Create a project</a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/profile}">My profile</a>
                 <span sec:authorize="isAuthenticated()" class="nav-user" sec:authentication="name"></span>
                 <form sec:authorize="isAuthenticated()" class="logout-form" th:action="@{/logout}" method="post">
                     <button class="logout-button" type="submit">Log out</button>

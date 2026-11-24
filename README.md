@@ -51,7 +51,7 @@ The application reads these environment variables from its run configuration or 
 
 Do not put passwords in `application.properties` or commit them to Git. A `.env` file is not automatically loaded by this project.
 
-Hibernate updates tables on startup using `spring.jpa.hibernate.ddl-auto=update`, but **the PostgreSQL database must already exist**. This setting is intended for local development, not production schema migrations.
+Schema changes are managed by Flyway migrations in `src/main/resources/db/migration` (`V2__description.sql`, etc.), applied on startup. Hibernate runs with `ddl-auto=validate`, so entities must match the migrated schema. **The PostgreSQL database itself must already exist** — Flyway only manages the tables inside it. Tests use H2 with `create-drop` and Flyway disabled.
 
 ## IntelliJ IDEA setup
 
