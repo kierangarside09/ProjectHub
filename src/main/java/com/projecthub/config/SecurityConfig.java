@@ -39,7 +39,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService accountDetailsService(AccountRepository accounts) {
         return email -> accounts.findByEmail(email)
-                .map(account -> User.withUsername(account.getUsername())
+                .map(account -> User.withUsername(account.getEmail())
                         .password(account.getHashedPassword())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException(email));

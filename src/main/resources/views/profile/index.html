@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>ProjectHub | My Profile</title>
+    <meta name="description" content="ProjectHub — a home for your next big idea.">
+</head>
+<body>
+<main layout:fragment="content" class="profile-page">
+
+    <section class="heading-section" aria-labelledby="profile-heading">
+        <p class="eyebrow">Your profile</p>
+        <h1 id="profile-heading" th:text="${profile.displayName}">Display name</h1>
+        <p class="intro" th:text="${profile.bio != null and !profile.bio.isEmpty() ? profile.bio : 'No bio yet — tell people what you are about.'}">Bio</p>
+    </section>
+
+    <section aria-label="Profile details">
+        <article class="project-card">
+            <dl class="project-facts">
+                <div>
+                    <dt>Location</dt>
+                    <dd th:text="${profile.location != null and !profile.location.isEmpty() ? profile.location : '—'}">Location</dd>
+                </div>
+                <div>
+                    <dt>Gender</dt>
+                    <dd th:text="${profile.gender != null ? profile.gender.value : '—'}">Gender</dd>
+                </div>
+                <div>
+                    <dt>Looking for</dt>
+                    <dd th:text="${profile.lookingFor != null ? profile.lookingFor.value : '—'}">Looking for</dd>
+                </div>
+            </dl>
+
+            <h2>Skills</h2>
+            <p th:text="${profile.skills != null and !profile.skills.isEmpty() ? profile.skills : 'No skills listed yet.'}">Skills</p>
+
+            <a class="button" th:href="@{/profile/edit}">Edit profile</a>
+        </article>
+    </section>
+
+</main>
+</body>
+</html>

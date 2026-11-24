@@ -1,7 +1,9 @@
 package com.projecthub.controllers;
 
 import com.projecthub.entities.Account;
+import com.projecthub.entities.Profile;
 import com.projecthub.repositories.AccountRepository;
+import com.projecthub.repositories.ProfileRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,19 +23,22 @@ public class AuthController {
 
     private final AccountRepository accountRepository;
 
+    private final ProfileRepository profileRepository;
+
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(AccountRepository accountRepository, ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
+        this.profileRepository = profileRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Getter
     @Setter
     public static class RegisterForm {
-        @NotBlank(message = "Username is required")
-        @Size(min = 3, max = 30, message = "Username must be 3–30 characters")
-        private String username;
+        @NotBlank(message = "Display name is required")
+        @Size(min = 3, max = 30, message = "Display name must be 3–30 characters")
+        private String displayName;
 
         @NotBlank(message = "Email is required")
         @Email(message = "Enter a valid email address")
@@ -68,16 +73,16 @@ public class AuthController {
             bindingResult.rejectValue("confirmPassword", "mismatch", "Passwords do not match");
             return "register/index";
         }
-        if (accountRepository.existsByUsername(registerForm.getUsername())) {
-            bindingResult.rejectValue("username", "duplicate", "That username is taken");
-            return "register/index";
-        }
         if (accountRepository.existsByEmail(registerForm.getEmail())) {
             bindingResult.rejectValue("email", "duplicate", "That email is already registered");
             return "register/index";
         }
 
-        accountRepository.save(new Account(registerForm.getUsername(),registerForm.getEmail(), passwordEncoder.encode(registerForm.getPassword())));
+        Account account = accountRepository.save(new Account(registerForm.getEmail(), passwordEncoder.encode(registerForm.getPassword())));
+        Profile profile = new Profile();
+        profile.setAccount(account);
+        profile.setDisplayName(registerForm.getDisplayName());
+        profileRepository.save(profile);
 
         return "redirect:/login?registered";
     }
