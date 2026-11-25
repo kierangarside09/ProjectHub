@@ -4,6 +4,10 @@
 <head>
     <title>ProjectHub | New Project</title>
     <meta name="description" content="ProjectHub — a home for your next big idea.">
+
+    <link rel="stylesheet" th:href="@{/css/flexdatalist.css}">
+
+    <script th:src="@{/js/flexdatalist.umd.js}" defer></script>
 </head>
 <body>
 <main layout:fragment="content" class="new-project-page">
@@ -21,8 +25,57 @@
                     <input class="w-3xs" type="text" id="projectName_input" name="name" placeholder="Project Name">
                 </div>
                 <div class="flex flex-col">
-                    <label for="project-small-description_input">Small Project Description:</label>
-                    <textarea id="project-small-description_input" name="smallDescription" placeholder="Project Description"></textarea>
+                    <label for="projectSmallDescription_input">Small Project Description:</label>
+                    <textarea id="projectSmallDescription_input" name="smallDescription" placeholder="Short Project Description"></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="projectTags_input">Project Tags:</label>
+                    <input
+                        class="flexdatalist"
+                        type="text"
+                        id="projectTags_input"
+                        name="tags"
+                        data-data="/data/tags-presets.json"
+                        data-min-length="0"
+                        data-multiple="true"
+                        data-search-contain="true"
+                        placeholder="Add tags..."
+                        >
+                </div>
+                <div class="flex flex-col">
+                    <label for="projectCreator_input">Project Creator:</label>
+                    <input class="w-3xs" type="text" id="projectCreator_input" name="creator" placeholder="John Doe">
+                </div>
+                <div class="flex flex-col">
+                    <label for="projectStage_input">Project Stage:</label>
+                    <input
+                            class="flexdatalist"
+                            type="text"
+                            id="projectStage_input"
+                            name="stage"
+                            data-data="/data/stages-presets.json"
+                            data-min-length="0"
+                            data-search-contain="true"
+                            placeholder="Current Stage"
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <label for="projectLookingFor_input">Looking For:</label>
+                    <input
+                            class="flexdatalist"
+                            type="text"
+                            id="projectLookingFor_input"
+                            name="lookingFor"
+                            data-data="/data/looking-for-presets.json"
+                            data-min-length="0"
+                            data-multiple="true"
+                            data-search-contain="true"
+                            placeholder="Roles..."
+                    >
+                </div>
+                <div class="flex flex-col">
+                    <label for="projectFullDescription_input">Full Project Description:</label>
+                    <textarea id="projectFullDescription_input" name="fullDescription" placeholder="Extended Project Description"></textarea>
                 </div>
             </div>
 

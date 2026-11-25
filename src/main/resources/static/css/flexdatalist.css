@@ -1,0 +1,531 @@
+/**
+ * Flexdatalist — Default stylesheet
+ * Version: 3.3.2
+ *
+ * Customize via CSS custom properties on any ancestor element:
+ *
+ *   --fdl-accent          Accent: tabs, focus, "add" option (default: #5a46df violet)
+ *   --fdl-accent-fg       Text on accent bg            (default: #fff)
+ *   --fdl-accent-light    Match highlight background   (default: #e6e0ff)
+ *   --fdl-highlight-fg    Match highlight text         (default: #3b2aa8)
+ *   --fdl-hover-bg        Hovered / active result      (default: #f3f3f1)
+ *   --fdl-hover-fg        Text of the active result    (default: #17171a)
+ *   --fdl-tag-bg          Tag background               (default: #efecfe)
+ *   --fdl-tag-border      Tag border                   (default: #d5cefb)
+ *   --fdl-tag-fg          Tag text                     (default: #4936c8)
+ *   --fdl-radius          Border radius                (default: 0.625rem)
+ *   --fdl-item-radius     Result item radius           (default: 0.5rem)
+ *   --fdl-icon-size       Thumbnail size (iconProperty) (default: 1.75rem)
+ *   --fdl-icon-radius     Thumbnail radius             (default: 0.375rem; 50% = round)
+ *   --fdl-font-size       Base font size               (default: 0.875rem)
+ *   --fdl-shadow          Dropdown shadow              (default: see below)
+ */
+
+/* ─── Custom properties ─────────────────────────────────────── */
+:root {
+    --fdl-accent:       #5a46df;
+    --fdl-accent-fg:    #fff;
+    --fdl-accent-light: #e6e0ff;
+    --fdl-highlight-fg: #3b2aa8;
+    --fdl-tag-bg:       #efecfe;
+    --fdl-tag-border:   #d5cefb;
+    --fdl-tag-fg:       #4936c8;
+    --fdl-radius:       0.625rem;
+    --fdl-item-radius:  0.5rem;
+    --fdl-icon-size:    1.75rem;
+    --fdl-icon-radius:  0.375rem;
+    --fdl-font-size:    0.875rem;
+    --fdl-shadow:       0 2px 4px rgba(23,23,26,.05),
+                        0 16px 40px -12px rgba(23,23,26,.18);
+
+    /* surface colors (light mode) */
+    --fdl-bg:             #ffffff;
+    --fdl-border:         #e5e4e0;
+    --fdl-text:           #17171a;
+    --fdl-text-muted:     #6b6b74;
+    --fdl-hover-bg:       #f3f3f1;
+    --fdl-hover-fg:       #17171a;
+    --fdl-group-bg:       transparent;
+    --fdl-group-border:   #e5e4e0;
+    --fdl-disabled-bg:    #f3f3f1;
+    --fdl-scrollbar:      #d6d5d0;
+
+    /* fetch animation — keep overrideable */
+    --flexdatalist-animation-color:    var(--fdl-accent);
+    --flexdatalist-animation-bg-color: rgba(255,255,255,0);
+}
+
+/* ─── Dark mode — auto via OS preference ────────────────────── */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fdl-accent:       #a497ff;
+        --fdl-accent-fg:    #120f24;
+        --fdl-accent-light: #3b3175;
+        --fdl-highlight-fg: #e4dfff;
+        --fdl-tag-bg:       #1c1933;
+        --fdl-tag-border:   #3a3369;
+        --fdl-tag-fg:       #bdb3ff;
+        --fdl-shadow:       0 2px 6px rgba(0,0,0,.5),
+                            0 18px 44px -12px rgba(0,0,0,.7);
+
+        --fdl-bg:           #17171b;
+        --fdl-border:       #2a2a31;
+        --fdl-text:         #ececf0;
+        --fdl-text-muted:   #93939e;
+        --fdl-hover-bg:     #222228;
+        --fdl-hover-fg:     #ececf0;
+        --fdl-group-bg:     transparent;
+        --fdl-group-border: #2a2a31;
+        --fdl-disabled-bg:  #101013;
+        --fdl-scrollbar:    #3a3a43;
+
+        --flexdatalist-animation-bg-color: rgba(0,0,0,0);
+    }
+}
+
+/* ─── Manual override — data-theme="dark" (app) or .fdl-dark ── */
+[data-theme="dark"],
+.fdl-dark {
+    --fdl-accent:       #a497ff;
+    --fdl-accent-fg:    #120f24;
+    --fdl-accent-light: #3b3175;
+    --fdl-highlight-fg: #e4dfff;
+    --fdl-tag-bg:       #1c1933;
+    --fdl-tag-border:   #3a3369;
+    --fdl-tag-fg:       #bdb3ff;
+    --fdl-shadow:       0 2px 6px rgba(0,0,0,.5),
+                        0 18px 44px -12px rgba(0,0,0,.7);
+
+    --fdl-bg:           #17171b;
+    --fdl-border:       #2a2a31;
+    --fdl-text:         #ececf0;
+    --fdl-text-muted:   #93939e;
+    --fdl-hover-bg:     #222228;
+    --fdl-hover-fg:     #ececf0;
+    --fdl-group-bg:     transparent;
+    --fdl-group-border: #2a2a31;
+    --fdl-disabled-bg:  #101013;
+    --fdl-scrollbar:    #3a3a43;
+
+    --flexdatalist-animation-bg-color: rgba(0,0,0,0);
+}
+
+/* ─── Dropdown list ─────────────────────────────────────────── */
+.flexdatalist-results,
+.flexdatalist-fetching-results {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    max-height: 280px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: 0.375rem;
+    list-style: none;
+    background: var(--fdl-bg);
+    border: 1px solid var(--fdl-border);
+    border-radius: var(--fdl-radius);
+    box-shadow: var(--fdl-shadow);
+    color: var(--fdl-text);
+    font-size: var(--fdl-font-size);
+    scrollbar-width: thin;
+    scrollbar-color: var(--fdl-scrollbar) transparent;
+}
+
+/* The list (or tab panel) takes focus during keyboard navigation; the
+   active item already shows where the user is, so no ring on the box. */
+.flexdatalist-results:focus,
+.flexdatalist-results ul.fdl-group-panel:focus {
+    outline: none;
+}
+
+/* ─── Grouped tabs mode (outer shell) ───────────────────────── */
+.flexdatalist-results.fdl-tabs {
+    padding: 0;
+    overflow: hidden; /* panels handle scrolling */
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tab strip */
+.flexdatalist-results.fdl-tabs .fdl-group-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.5rem 0.4rem;
+    border-bottom: 1px solid var(--fdl-border);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fdl-scrollbar) transparent;
+}
+
+/* Enter animation: slide pills into place */
+.flexdatalist-results.fdl-tabs .fdl-group-tabs.fdl-group-tabs-enter .fdl-group-tab {
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: fdl-tab-pill-in 360ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: calc(var(--fdl-tab-i, 0) * 45ms);
+}
+
+@keyframes fdl-tab-pill-in {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.flexdatalist-results.fdl-tabs .fdl-group-tab {
+    appearance: none;
+    border: 1px solid var(--fdl-border);
+    background: var(--fdl-bg);
+    color: var(--fdl-text);
+    border-radius: 9999px;
+    padding: 0.25rem 0.55rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(1)  { --fdl-tab-i: 0; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(2)  { --fdl-tab-i: 1; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(3)  { --fdl-tab-i: 2; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(4)  { --fdl-tab-i: 3; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(5)  { --fdl-tab-i: 4; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(6)  { --fdl-tab-i: 5; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(7)  { --fdl-tab-i: 6; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(8)  { --fdl-tab-i: 7; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(9)  { --fdl-tab-i: 8; }
+.flexdatalist-results.fdl-tabs .fdl-group-tab:nth-child(10) { --fdl-tab-i: 9; }
+
+.flexdatalist-results.fdl-tabs .fdl-group-tab:focus-visible {
+    outline: 2px solid var(--fdl-accent);
+    outline-offset: 2px;
+}
+
+.flexdatalist-results.fdl-tabs .fdl-group-tab.is-active {
+    background: var(--fdl-accent);
+    border-color: var(--fdl-accent);
+    color: var(--fdl-accent-fg);
+}
+
+.flexdatalist-results.fdl-tabs .fdl-group-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.2rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 9999px;
+    font-size: 0.85em;
+    font-weight: 700;
+    background: rgba(100,116,139,0.12);
+    color: var(--fdl-text-muted);
+}
+.flexdatalist-results.fdl-tabs .fdl-group-tab.is-active .fdl-group-tab-count {
+    background: rgba(255,255,255,0.25);
+    color: inherit;
+}
+
+/* Panels wrapper + panels */
+.flexdatalist-results.fdl-tabs .fdl-group-panels {
+    position: relative;
+    height: 280px;
+}
+
+.flexdatalist-results.fdl-tabs ul.fdl-group-panel {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0.375rem;
+    list-style: none;
+    background: var(--fdl-bg);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    max-height: 280px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--fdl-scrollbar) transparent;
+    transition: transform 220ms ease;
+}
+
+.flexdatalist-results.fdl-tabs ul.fdl-group-panel[hidden] {
+    display: none;
+}
+
+/* During animation we slide both panels; keep them above each other */
+.flexdatalist-results.fdl-tabs ul.fdl-group-panel.is-animating {
+    will-change: transform;
+}
+
+/* ─── Result items ──────────────────────────────────────────── */
+.flexdatalist-results li {
+    padding: 0.5rem 0.625rem;
+    line-height: 1.45;
+    border-radius: var(--fdl-item-radius);
+    transition: background 0.1s ease, color 0.1s ease;
+    cursor: pointer;
+}
+
+/* Keyword match highlight */
+.flexdatalist-results li span.highlight {
+    font-weight: 600;
+    background: var(--fdl-accent-light);
+    color: var(--fdl-highlight-fg);
+    border-radius: 3px;
+    padding: 0;
+    box-shadow: 0 0 0 1px var(--fdl-accent-light);
+}
+
+/* Hover / keyboard-active state: a soft fill, the highlight stays as it is */
+.flexdatalist-results li:not(.no-results):not(.group):hover,
+.flexdatalist-results li.active:not(.no-results):not(.group) {
+    background: var(--fdl-hover-bg);
+    color: var(--fdl-hover-fg);
+    cursor: pointer;
+}
+
+/* Thumbnails (iconProperty). Specific enough to beat CSS resets that make
+   images block-level, low enough that ".flexdatalist-results li img.prop-thumb"
+   in your stylesheet still wins. */
+.flexdatalist-results li > img {
+    display: inline-block;
+    width: var(--fdl-icon-size);
+    height: var(--fdl-icon-size);
+    max-width: none;
+    margin-right: 0.5rem;
+    border-radius: var(--fdl-icon-radius);
+    object-fit: cover;
+    vertical-align: middle;
+    background: var(--fdl-hover-bg);
+}
+
+/* No results */
+.flexdatalist-results li.no-results {
+    font-size: 0.8125rem;
+    color: var(--fdl-text-muted);
+    cursor: default;
+    text-align: center;
+    padding: 0.75rem 0.625rem;
+}
+
+/* "Add new item" inside no-results */
+.flexdatalist-results li.no-results.add-new-item {
+    color: var(--fdl-accent);
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+.flexdatalist-results li.no-results.add-new-item:hover,
+.flexdatalist-results li.no-results.add-new-item.active {
+    background: var(--fdl-hover-bg);
+    color: var(--fdl-accent);
+}
+
+/* Fetching loader row */
+.flexdatalist-fetching-results li.flexdatalist-fetching-results-loader {
+    text-align: center;
+    padding: 0.75rem;
+    cursor: default;
+}
+.flexdatalist-fetching-results li.flexdatalist-fetching-results-loader img {
+    height: 28px;
+    opacity: 0.5;
+}
+
+/* ─── Grouped items ─────────────────────────────────────────── */
+.flexdatalist-results li.group {
+    background: var(--fdl-group-bg);
+    color: var(--fdl-text-muted);
+    padding: 0.625rem 0.625rem 0.25rem;
+    border-radius: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: default;
+}
+.flexdatalist-results li.group:first-child {
+    padding-top: 0.375rem;
+}
+.flexdatalist-results li .group-name {
+    font-weight: 600;
+}
+.flexdatalist-results li .group-item-count {
+    color: var(--fdl-text-muted);
+    font-weight: 500;
+    margin-left: 0.25rem;
+}
+
+/* ─── Multiple / tags container ─────────────────────────────── */
+.flexdatalist-multiple {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    width: 100%;
+    margin: 0;
+    padding: 0.3rem 0.4rem;
+    list-style: none;
+    cursor: text;
+    box-sizing: border-box;
+}
+/* clearfix fallback */
+.flexdatalist-multiple::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.flexdatalist-multiple.disabled {
+    background-color: var(--fdl-disabled-bg);
+    cursor: default;
+    opacity: 0.7;
+}
+/* Single-value alias made read-only (readonly(true) or chainedRelatives) */
+input.flexdatalist-alias[readonly] {
+    background-color: var(--fdl-disabled-bg);
+    cursor: default;
+}
+
+/* The grow-able input cell */
+.flexdatalist-multiple li.input-container {
+    flex: 1 1 6rem;
+    min-width: 6rem;
+}
+.flexdatalist-multiple li.input-container,
+.flexdatalist-multiple li.input-container input {
+    border: none;
+    background: transparent;
+    height: auto;
+    padding: 0.15rem 0.2rem;
+    line-height: 1.5;
+    box-shadow: none;
+    outline: none;
+    font-size: var(--fdl-font-size);
+    color: inherit;
+    width: 100%;
+}
+
+/* ─── Tags ──────────────────────────────────────────────────── */
+.flexdatalist-multiple li.value,
+li.flexdatalist-collapsed-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.65rem;
+    background: var(--fdl-tag-bg);
+    border: 1px solid var(--fdl-tag-border);
+    border-radius: 9999px; /* pill */
+    color: var(--fdl-tag-fg);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+}
+.flexdatalist-multiple li.value:hover {
+    background: var(--fdl-accent-light);
+    border-color: var(--fdl-tag-border);
+}
+
+/* Collapsed count badge */
+li.flexdatalist-collapsed-control {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Toggle (select/deselect) styling */
+.flexdatalist-multiple li.toggle {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.flexdatalist-multiple li.toggle.disabled {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+/* Tag marked by a first Backspace (the next one removes it) */
+.flexdatalist-multiple li.value.marked {
+    background: var(--fdl-accent);
+    border-color: var(--fdl-accent);
+    color: var(--fdl-accent-fg);
+}
+.flexdatalist-multiple li.value.marked span.fdl-remove {
+    color: var(--fdl-accent-fg);
+    opacity: 1;
+}
+
+/* ─── Remove (×) button inside tags ────────────────────────── */
+/* The × is drawn with two lines rather than the &times; glyph,
+   which sits low in most fonts and never centres in the circle. */
+.flexdatalist-multiple li.value span.fdl-remove {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-left: 0.1rem;
+    border-radius: 50%;
+    font-size: 0; /* hides the &times; text, kept for the DOM */
+    cursor: pointer;
+    color: var(--fdl-tag-fg);
+    opacity: 0.55;
+    transition: opacity 0.15s, background 0.15s;
+}
+.flexdatalist-multiple li.value span.fdl-remove::before,
+.flexdatalist-multiple li.value span.fdl-remove::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.5rem;
+    height: 1.5px;
+    border-radius: 1px;
+    background: currentColor;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.flexdatalist-multiple li.value span.fdl-remove::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+.flexdatalist-multiple li.value span.fdl-remove:hover {
+    opacity: 1;
+    background: var(--fdl-tag-border);
+}
+
+/* ─── Utility ───────────────────────────────────────────────── */
+.flexdatalist-hidden,
+.flexdatalist-multiple li.value.flexdatalist-collapsed-item {
+    /* Must outrank ".flexdatalist-multiple li.value", which shows tags */
+    display: none;
+}
+
+/* ─── Fetch progress bar ────────────────────────────────────── */
+.flexdatalist-fetch-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    border: none;
+    z-index: 10001;
+    margin: 0;
+    padding: 0;
+    height: 2px;
+    color: transparent !important;
+    border-radius: 0 0 2px 2px;
+    animation:
+        fdl-fetch-slide 1.4s linear infinite;
+    background: linear-gradient(
+        90deg,
+        var(--flexdatalist-animation-bg-color) 0%,
+        var(--flexdatalist-animation-color)    40%,
+        var(--flexdatalist-animation-bg-color) 100%
+    );
+    background-size: 400% 100%;
+}
+
+@keyframes fdl-fetch-slide {
+    0%   { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}

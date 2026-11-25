@@ -65,24 +65,21 @@
                 <p th:text="${project.smallDescription}"></p>
 
                 <ul class="project-tags" aria-label="Technologies">
-                    <li>Java</li>
-                    <li>Spring Boot</li>
-                    <li>PostgreSQL</li>
-                    <li>Thymeleaf</li>
+                    <li th:each="tag : ${project.tags}" th:text="${tag}"></li>
                 </ul>
 
                 <dl class="project-facts">
                     <div>
                         <dt>Started by</dt>
-                        <dd>Alexander Fedorciv</dd>
+                        <dd th:text="${project.creator}"></dd>
                     </div>
                     <div>
                         <dt>Project stage</dt>
-                        <dd>Early prototype</dd>
+                        <dd th:text="${project.stage.value}"></dd>
                     </div>
                     <div>
                         <dt>Looking for</dt>
-                        <dd>Backend developers &amp; UI designers</dd>
+                        <dd><span th:each="contributor : ${project.lookingFor}" th:text="${contributor}"></span></dd>
                     </div>
                 </dl>
 
